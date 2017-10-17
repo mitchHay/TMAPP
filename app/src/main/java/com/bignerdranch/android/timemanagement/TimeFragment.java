@@ -187,11 +187,15 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
                 final TimeLab timeLab = TimeLab.get(getActivity());
                 mTime = timeLab.getTime(timeId);
 
+                if (mTime.getTitle() == null){
+                    mTime.setTitle("Activity");
+                }
+
                 // Display an Alert
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Delete Activity")
-                        .setMessage("Delete Current Activity?")
+                        .setMessage("Delete " + mTime.getTitle() + "?")
                         .setCancelable(true)
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
