@@ -126,7 +126,7 @@ public class TimeListFragment extends Fragment {
             mTime = time;
 
             mTitleTextView.setText(mTime.getTitle());
-            mLocationView.setText("LOCATION: " + String.valueOf(mTime.getLat()) + ", " + String.valueOf(mTime.getLong()));
+            mLocationView.setText(mTime.getFullAddress());
 
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d, yyyy");
             mDateTextView.setText(sdf.format(mTime.getDate()));

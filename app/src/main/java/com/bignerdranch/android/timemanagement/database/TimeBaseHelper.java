@@ -26,7 +26,7 @@ public class TimeBaseHelper extends SQLiteOpenHelper {
                " _id integer primary key autoincrement, " + TimeTable.Cols.UUID + ", " + TimeTable.Cols.TITLE +
                ", " + TimeTable.Cols.DATE + ", " + TimeTable.Cols.SPINNERID +
                ", " + TimeTable.Cols.HOUR + ", " + TimeTable.Cols.MINUTE +
-               ", " + TimeTable.Cols.LAT + ", " + TimeTable.Cols.LONG + ")");
+               ", " + TimeTable.Cols.LAT + ", " + TimeTable.Cols.LONG + ", " + TimeTable.Cols.FULLADDRESS + ")");
     }
 
     @Override

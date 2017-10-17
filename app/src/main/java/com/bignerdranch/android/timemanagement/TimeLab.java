@@ -156,6 +156,7 @@ public class TimeLab {
         values.put(TimeTable.Cols.MINUTE, time.getMin());
         values.put(TimeTable.Cols.LAT, time.getLat());
         values.put(TimeTable.Cols.LONG, time.getLong());
+        values.put(TimeTable.Cols.FULLADDRESS, time.getFullAddress());
 
         return values;
 

@@ -94,7 +94,11 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
     private ImageView mPhotoView;
     private File mPhotoFile;
 
+    private String fullAddress;
+
     private TimePicker tp;
+
+    private boolean isAddress;
 
     public static TimeFragment newInstance(UUID timeId){
         Bundle args = new Bundle();
@@ -119,6 +123,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         mPhotoFile = TimeLab.get(getActivity()).getPhotoFile(mTime);
+
 
     }
 
@@ -151,22 +156,21 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         request.setNumUpdates(1);
         request.setInterval(0);
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d("LOCATION: ", String.valueOf(location));
-                mTime.setLat(location.getLatitude());
-                mTime.setLong(location.getLongitude());
-            }
-        });
-
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Log.d("P STATUS: ", TAG);
         } else {
             Log.d("P STATUS: ", TAG_SUCCESS);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.d("LOCATION: ", String.valueOf(location));
+                    mTime.setLat(location.getLatitude());
+                    mTime.setLong(location.getLongitude());
+                }
+            });
         }
 
-        if (mTime.getLat() != 0.0 && mTime.getLong() != 0.0){
+        if (mTime.getLat() != 0.0 && mTime.getLong() != 0.0) {
             try {
                 addresses = geocoder.getFromLocation(mTime.getLat(), mTime.getLong(), 1);
 
@@ -176,18 +180,15 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
                 String country = addresses.get(0).getCountryName();
                 String address = addresses.get(0).getAddressLine(0);
 
-                String fullAddress = address + ", " + area + ", " + city + " " + country + " " + postcode;
+                fullAddress = address + ", " + area + ", " + city + " " + country + " " + postcode;
 
-                mTime.setFullAddress(fullAddress);
-
-                Log.d("PCODE: ", area + ", " + city + " " + country + " " + postcode);
-
-                mLocatrButton.setText(mTime.getFullAddress());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        mTime.setFullAddress(fullAddress);
+        mLocatrButton.setText(mTime.getFullAddress());
     }
 
     @Override
@@ -316,7 +317,6 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         });
 
         mLocatrButton = (TextView)v.findViewById(R.id.time_location);
-        mLocatrButton.setText("LAT: " + String.valueOf(mTime.getLat()) + " LONG: " + String.valueOf(mTime.getLong()));
 
         mPhotoButton = (ImageButton)v.findViewById(R.id.time_camera);
 
