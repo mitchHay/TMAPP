@@ -84,6 +84,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
     private Spinner mSpinner;
     private Button mTimeButton;
     private TextView mLocatrButton;
+    private Button mViewMap;
 
     private GoogleApiClient mClient;
 
@@ -140,6 +141,10 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
 
         mClient.connect();
 
+        if (mLocatrButton.getText() == ""){
+            mLocatrButton.setText("GETTING LOCATION...");
+        }
+
     }
 
     @Override
@@ -183,7 +188,6 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
                 fullAddress = address + ", " + area + ", " + city + " " + country + " " + postcode;
 
                 mTime.setFullAddress(fullAddress);
-
 
                 mLocatrButton.setText(mTime.getFullAddress());
 
@@ -346,6 +350,14 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
 
         mPhotoView = (ImageView)v.findViewById(R.id.time_photo);
         updatePhotoView();
+
+        mViewMap = (Button)v.findViewById(R.id.time_view_location);
+        mViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Load Google Map
+            }
+        });
 
         return v;
 
