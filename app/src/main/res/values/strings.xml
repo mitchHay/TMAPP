@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TimeManagement</string>
+    <string name="time_title_hint">Enter a title for the activity</string>
+    <string name="time_title_label">Title</string>
+    <string name="time_details_label">Date</string>
+    <string name="time_select">Type</string>
+    <string name="time_location">Location</string>
+    <string name="time_duration">Duration</string>
+    <string name="time_comment">Comment</string>
+    <string name="date_picker_title">Date of Activity:</string>
+    <string name="new_activity">New Activity</string>
+    <string name="user_settings">Settings</string>
+    <string name="duration_picker_title">Duration of Activity:</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_id">ID</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_gender">Gender</string>
+    <string name="settings_comment">Comment</string>
+    <string name="menu_delete">Delete Activity</string>
+
+    <string-array name="activity_arrays">
+        <item>Work</item>
+        <item>Study</item>
+        <item>Leisure</item>
+        <item>Sport</item>
+    </string-array>
+
+    <string-array name="settings_arrays">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Do Not Wish To Disclose</item>
+    </string-array>
+
+</resources>
