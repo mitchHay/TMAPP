@@ -35,6 +35,8 @@ public class Time {
 
     private TimePicker mTimePicker;
 
+    private String fullAddress;
+
     // Generate a constructor
 
     public Time() {
@@ -162,6 +164,14 @@ public class Time {
 
     public String getPhotoFilename(){
         return "IMG_" + getId().toString() + ".jpg";
+    }
+
+    public void setFullAddress(String address){
+        this.fullAddress = address;
+    }
+
+    public String getFullAddress(){
+        return fullAddress;
     }
 
 }

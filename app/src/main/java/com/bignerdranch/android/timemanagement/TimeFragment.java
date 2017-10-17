@@ -166,6 +166,28 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
             Log.d("P STATUS: ", TAG_SUCCESS);
         }
 
+        if (mTime.getLat() != 0.0 && mTime.getLong() != 0.0){
+            try {
+                addresses = geocoder.getFromLocation(mTime.getLat(), mTime.getLong(), 1);
+
+                String postcode = addresses.get(0).getPostalCode();
+                String city = addresses.get(0).getAdminArea();
+                String area = addresses.get(0).getLocality();
+                String country = addresses.get(0).getCountryName();
+                String address = addresses.get(0).getAddressLine(0);
+
+                String fullAddress = address + ", " + area + ", " + city + " " + country + " " + postcode;
+
+                mTime.setFullAddress(fullAddress);
+
+                Log.d("PCODE: ", area + ", " + city + " " + country + " " + postcode);
+
+                mLocatrButton.setText(mTime.getFullAddress());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override
