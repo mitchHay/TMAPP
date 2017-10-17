@@ -119,6 +119,11 @@ public class TimeLab {
 
     }
 
+    public File getPhotoFile(Time time){
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, time.getPhotoFilename());
+    }
+
     public void updateTime(Time time){
 
         String uuidString = time.getId().toString();

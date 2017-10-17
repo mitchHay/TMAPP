@@ -5,15 +5,19 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
 import android.location.Location;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Html;
@@ -41,6 +45,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.Permission;
 import java.text.SimpleDateFormat;
@@ -63,6 +68,8 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
 
     private static final int REQUEST_DATE = 0;
 
+    private static final int REQUEST_PHOTO = 2;
+
     private static final int REQUEST_TIME = 1;
 
     private TimePickerFragment timePicker;
@@ -84,6 +91,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
 
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
+    private File mPhotoFile;
 
     private TimePicker tp;
 
@@ -108,6 +116,8 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         // Get the Current Location of the user
 
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
+
+        mPhotoFile = TimeLab.get(getActivity()).getPhotoFile(mTime);
 
     }
 
@@ -282,6 +292,28 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mLocatrButton.setText("LAT: " + String.valueOf(mTime.getLat()) + " LONG: " + String.valueOf(mTime.getLong()));
 
         mPhotoButton = (ImageButton)v.findViewById(R.id.time_camera);
+
+        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        PackageManager pm = getActivity().getPackageManager();
+
+        boolean canTakePhoto = mPhotoFile != null && captureImage.resolveActivity(pm) != null;
+        mPhotoButton.setEnabled(canTakePhoto);
+
+        mPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = FileProvider.getUriForFile(getActivity(), "com.bignerdranch.android.timemanagement.fileprovider", mPhotoFile);
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+                List<ResolveInfo> cameraActivities = getActivity().getPackageManager().queryIntentActivities(captureImage, PackageManager.MATCH_DEFAULT_ONLY);
+
+                for (ResolveInfo activitiy : cameraActivities){
+                    getActivity().grantUriPermission(activitiy.activityInfo.packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+                startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        });
+
         mPhotoView = (ImageView)v.findViewById(R.id.time_photo);
 
         return v;
