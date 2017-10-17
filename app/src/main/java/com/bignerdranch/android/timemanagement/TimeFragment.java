@@ -182,13 +182,15 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
 
                 fullAddress = address + ", " + area + ", " + city + " " + country + " " + postcode;
 
+                mTime.setFullAddress(fullAddress);
+
+
+                mLocatrButton.setText(mTime.getFullAddress());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        mTime.setFullAddress(fullAddress);
-        mLocatrButton.setText(mTime.getFullAddress());
     }
 
     @Override
@@ -317,6 +319,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         });
 
         mLocatrButton = (TextView)v.findViewById(R.id.time_location);
+        //mLocatrButton.setText(mTime.getFullAddress());
 
         mPhotoButton = (ImageButton)v.findViewById(R.id.time_camera);
 
