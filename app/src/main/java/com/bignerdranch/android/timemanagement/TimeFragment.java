@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
@@ -315,6 +316,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         });
 
         mPhotoView = (ImageView)v.findViewById(R.id.time_photo);
+        updatePhotoView();
 
         return v;
 
@@ -332,6 +334,14 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
             updateDate();
         }
 
+        if (requestCode == REQUEST_PHOTO) {
+            Uri uri = FileProvider.getUriForFile(getActivity(), "com.bignerdranch.android.timemanagement.fileprovider", mPhotoFile);
+
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            updatePhotoView();
+        }
+
         if (requestCode == REQUEST_TIME) {
             int hourOfDay = (int) data.getSerializableExtra(TimePickerFragment.EXTRA_HOUR);
             int minute = (int) data.getSerializableExtra(TimePickerFragment.EXTRA_MIN);
@@ -345,6 +355,21 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d, yyyy");
         mDateButton.setText(sdf.format(mTime.getDate()));
         //mDateButton.setText(mTime.getDate().toString());
+    }
+
+    private void updatePhotoView(){
+
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
+
+            mPhotoView.setImageDrawable(null);
+
+        } else {
+
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhotoView.setImageBitmap(bitmap);
+
+        }
+
     }
 
 }
