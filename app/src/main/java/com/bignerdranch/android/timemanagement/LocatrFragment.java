@@ -1,9 +1,12 @@
 package com.bignerdranch.android.timemanagement;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +30,11 @@ public class LocatrFragment extends Fragment {
     private ImageView mImageView;
     private GoogleApiClient mClient;
 
+    private static final String[] LOCATION_PERMISSIONS = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
+
     public static LocatrFragment newInstance(){
         return new LocatrFragment();
     }
@@ -36,7 +44,17 @@ public class LocatrFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).build();
+        mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+            @Override
+            public void onConnected(@Nullable Bundle bundle) {
+                getActivity().invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onConnectionSuspended(int i) {
+
+            }
+        }).build();
     }
 
     @Override
@@ -69,6 +87,11 @@ public class LocatrFragment extends Fragment {
 
         MenuItem searchItem = menu.findItem(R.id.action_locate);
         searchItem.setEnabled(mClient.isConnected());
+    }
+
+    private boolean hasLocationPermission(){
+        int result = ContextCompat.checkSelfPermission(getActivity(), LOCATION_PERMISSIONS[0]);
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
 
