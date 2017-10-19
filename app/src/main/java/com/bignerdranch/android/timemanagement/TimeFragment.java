@@ -161,6 +161,8 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         request.setNumUpdates(1);
         request.setInterval(0);
 
+        mViewMap.setEnabled(true);
+
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Log.d("P STATUS: ", TAG);
         } else {
@@ -352,6 +354,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         updatePhotoView();
 
         mViewMap = (Button)v.findViewById(R.id.time_view_location);
+        mViewMap.setEnabled(false);
         mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
