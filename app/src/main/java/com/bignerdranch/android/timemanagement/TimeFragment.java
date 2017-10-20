@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -45,6 +46,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -358,7 +360,8 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Load Google Map
+                Intent intent = LocatrActivity.newIntent(getActivity());
+                startActivity(intent);
             }
         });
 

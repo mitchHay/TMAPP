@@ -1,9 +1,12 @@
 package com.bignerdranch.android.timemanagement;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -12,12 +15,21 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import java.util.UUID;
+
 /**
  * Created by mitchellhayward on 9/10/17.
  */
 
 public class LocatrActivity extends SingleFragmentActivity {
     private static final int REQUEST_ERROR = 0;
+
+    private static final String EXTRA_MAP_ID = "com.bignerdranch.android.timemanagement.map_id";
+
+    public static Intent newIntent(Context packageContext){
+        Intent intent = new Intent(packageContext, LocatrActivity.class);
+        return intent;
+    }
 
     @Override
     protected Fragment createFragment(){

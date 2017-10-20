@@ -26,7 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by mitchellhayward on 9/10/17.
  */
 
-public class LocatrFragment extends Fragment {
+public class LocatrFragment extends SupportMapFragment {
     private ImageView mImageView;
     private GoogleApiClient mClient;
 
@@ -55,14 +55,6 @@ public class LocatrFragment extends Fragment {
 
             }
         }).build();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_locatr, container, false);
-        mImageView = (ImageView)v.findViewById(R.id.image);
-
-        return v;
     }
 
     @Override
