@@ -128,6 +128,8 @@ public class LocatrFragment extends SupportMapFragment {
 
             CameraUpdate zoomUpdate = CameraUpdateFactory.newLatLngZoom(itemPoint, 18.5f);
 
+            mMap.addMarker(new MarkerOptions().position(itemPoint).title(mTime.getFullAddress()));
+
             mMap.animateCamera(zoomUpdate);
         }
     }
