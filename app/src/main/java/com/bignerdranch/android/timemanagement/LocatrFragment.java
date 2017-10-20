@@ -42,7 +42,7 @@ public class LocatrFragment extends SupportMapFragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
             @Override
@@ -70,15 +70,6 @@ public class LocatrFragment extends SupportMapFragment {
         super.onStop();
 
         mClient.disconnect();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_locatr, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.action_locate);
-        searchItem.setEnabled(mClient.isConnected());
     }
 
     private boolean hasLocationPermission(){
