@@ -123,10 +123,12 @@ public class LocatrFragment extends SupportMapFragment {
 
             LatLngBounds bounds = new LatLngBounds.Builder().include(itemPoint).build();
 
-            int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
-            CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
+            //int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
+            //CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
 
-            mMap.animateCamera(update);
+            CameraUpdate zoomUpdate = CameraUpdateFactory.newLatLngZoom(itemPoint, 18.5f);
+
+            mMap.animateCamera(zoomUpdate);
         }
     }
 
