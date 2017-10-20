@@ -66,7 +66,7 @@ public class LocatrFragment extends SupportMapFragment {
         UUID timeId = (UUID) getArguments().getSerializable(ARG_MAP_ID);
         mTime = TimeLab.get(getActivity()).getTime(timeId);
 
-        Log.d("TEST: ", mTime.getFullAddress());
+        //Log.d("TEST: ", mTime.getFullAddress());
 
         //setHasOptionsMenu(true);
 
@@ -117,14 +117,17 @@ public class LocatrFragment extends SupportMapFragment {
             return;
         }
 
-        LatLng itemPoint = new LatLng(mTime.getLat(), mTime.getLong());
+        if (mTime.getLat() != 0.0 && mTime.getLong() != 0.0) {
 
-        LatLngBounds bounds = new LatLngBounds.Builder().include(itemPoint).build();
+            LatLng itemPoint = new LatLng(mTime.getLat(), mTime.getLong());
 
-        int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
-        CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
+            LatLngBounds bounds = new LatLngBounds.Builder().include(itemPoint).build();
 
-        mMap.animateCamera(update);
+            int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
+            CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
+
+            mMap.animateCamera(update);
+        }
     }
 
 }

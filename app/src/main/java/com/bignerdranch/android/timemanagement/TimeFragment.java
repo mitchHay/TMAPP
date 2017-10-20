@@ -361,7 +361,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("LAT: ", mTime.getFullAddress());
+                //Log.d("LAT: ", mTime.getFullAddress());
                 Intent intent = LocatrActivity.newIntent(getActivity(), mTime.getId());
                 //Intent intent = MapsActivity.newIntent(getActivity());
                 startActivity(intent);
