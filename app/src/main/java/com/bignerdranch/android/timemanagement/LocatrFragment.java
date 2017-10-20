@@ -86,6 +86,7 @@ public class LocatrFragment extends SupportMapFragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
+                updateUI();
             }
         });
 
@@ -109,6 +110,21 @@ public class LocatrFragment extends SupportMapFragment {
     private boolean hasLocationPermission(){
         int result = ContextCompat.checkSelfPermission(getActivity(), LOCATION_PERMISSIONS[0]);
         return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void updateUI(){
+        if (mMap == null){
+            return;
+        }
+
+        LatLng itemPoint = new LatLng(mTime.getLat(), mTime.getLong());
+
+        LatLngBounds bounds = new LatLngBounds.Builder().include(itemPoint).build();
+
+        int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
+        CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
+
+        mMap.animateCamera(update);
     }
 
 }
