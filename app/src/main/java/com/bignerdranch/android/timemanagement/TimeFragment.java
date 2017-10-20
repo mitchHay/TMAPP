@@ -46,6 +46,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.File;
@@ -126,7 +128,6 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         mPhotoFile = TimeLab.get(getActivity()).getPhotoFile(mTime);
-
 
     }
 
@@ -360,7 +361,9 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = LocatrActivity.newIntent(getActivity());
+                Log.d("LAT: ", mTime.getFullAddress());
+                Intent intent = LocatrActivity.newIntent(getActivity(), mTime.getId());
+                //Intent intent = MapsActivity.newIntent(getActivity());
                 startActivity(intent);
             }
         });
