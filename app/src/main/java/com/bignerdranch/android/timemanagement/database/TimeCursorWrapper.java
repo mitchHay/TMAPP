@@ -29,6 +29,7 @@ public class TimeCursorWrapper extends CursorWrapper {
         Double lat = getDouble(getColumnIndex(TimeTable.Cols.LAT));
         Double lon = getDouble(getColumnIndex(TimeTable.Cols.LONG));
         String fullAddress = getString(getColumnIndex(TimeTable.Cols.FULLADDRESS));
+        String comment = getString(getColumnIndex(TimeTable.Cols.COMMENT));
 
         Time time = new Time(UUID.fromString(uuidString));
         time.setTitle(title);
@@ -39,6 +40,7 @@ public class TimeCursorWrapper extends CursorWrapper {
         time.setLat(lat);
         time.setLong(lon);
         time.setFullAddress(fullAddress);
+        time.setComment(comment);
 
         return time;
     }

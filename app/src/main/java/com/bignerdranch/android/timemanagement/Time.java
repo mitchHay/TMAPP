@@ -22,6 +22,8 @@ public class Time {
     private int mHour;
     private int mMinute;
 
+    private String mComment;
+
     private UUID newId;
 
     private String mName;
@@ -172,6 +174,14 @@ public class Time {
 
     public void setFullAddress(String mFullAddress) {
         this.mFullAddress = mFullAddress;
+    }
+
+    public String getComment() {
+        return mComment;
+    }
+
+    public void setComment(String mComment) {
+        this.mComment = mComment;
     }
 
 }

@@ -23,6 +23,7 @@ public class TimeDbSchema {
             public static final String LAT = "lat";
             public static final String LONG = "long";
             public static final String FULLADDRESS = "fulladdress";
+            public static final String COMMENT = "comment";
 
         }
 

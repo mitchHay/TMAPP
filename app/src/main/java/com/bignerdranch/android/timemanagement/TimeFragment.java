@@ -99,6 +99,8 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
     private ImageView mPhotoView;
     private File mPhotoFile;
 
+    private EditText mComment;
+
     private String fullAddress;
 
     private TimePicker tp;
@@ -365,6 +367,25 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
                 Intent intent = LocatrActivity.newIntent(getActivity(), mTime.getId());
                 //Intent intent = MapsActivity.newIntent(getActivity());
                 startActivity(intent);
+            }
+        });
+
+        mComment = (EditText)v.findViewById(R.id.time_comment);
+        mComment.setText(mTime.getComment());
+        mComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mTime.setComment(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
