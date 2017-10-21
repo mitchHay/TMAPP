@@ -47,13 +47,14 @@ public class Time {
         //mDate = new Date();
 
         // Generate a custom UUID from string in order to activate the Settings Fragment
-
         newId = UUID.fromString("00002415-0000-1000-8000-00805F9B34FB");
+
     }
 
     public Time(UUID id){
         mId = id;
         mDate = new Date();
+        newId = UUID.fromString("00002415-0000-1000-8000-00805F9B34FB");
     }
 
     public UUID getId() {

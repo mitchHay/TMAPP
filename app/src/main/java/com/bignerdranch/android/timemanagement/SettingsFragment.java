@@ -63,6 +63,12 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        TimeLab.get(getActivity()).updateSettings(mTime);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View v = inflater.inflate(R.layout.settings_fragment, container, false);

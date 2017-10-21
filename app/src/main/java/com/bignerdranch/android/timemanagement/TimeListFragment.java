@@ -78,6 +78,7 @@ public class TimeListFragment extends Fragment {
                 return true;
             case R.id.user_settings:
                 Time settingsTime = new Time();
+                //Log.d("ID: ", settingsTime.getNewId().toString());
                 TimeLab.get(getActivity()).addSettings(settingsTime);
                 Intent settingsIntent = SettingsActivity.newIntent(getActivity(), settingsTime.getNewId());
                 startActivity(settingsIntent);

@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.bignerdranch.android.timemanagement.database.TimeBaseHelper;
 import com.bignerdranch.android.timemanagement.database.TimeCursorWrapper;
 import com.bignerdranch.android.timemanagement.database.TimeDbSchema.TimeTable;
@@ -66,6 +68,9 @@ public class TimeLab {
 
     public void addSettings(Time t){
         mSettings.add(t);
+        //ContentValues values = getSettingsValues(t);
+
+        //mDatabase.insert(TimeTable.SETTINGSNAME, null, values);
     }
 
     public List<Time> getActivity(){
@@ -108,15 +113,20 @@ public class TimeLab {
     }
 
     public Time getSettings(UUID id){
-        for (Time time : mSettings){
 
-        if (time.getNewId().equals(id)){
-        return time;
+        TimeCursorWrapper cursor = querySettings(TimeTable.settingsCols.SID + " = ?", new String[] {id.toString()});
+
+        try {
+            if (cursor.getCount() == 0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getSettings();
+
+        } finally {
+            cursor.close();
         }
-
-        }
-
-        return null;
     }
 
     public File getPhotoFile(Time time){
@@ -133,9 +143,26 @@ public class TimeLab {
 
     }
 
+    public void updateSettings(Time time){
+
+        String uuidString = time.getNewId().toString();
+        ContentValues values = getSettingsValues(time);
+
+        mDatabase.update(TimeTable.SETTINGSNAME, values, TimeTable.settingsCols.SID + " = ?", new String[] {uuidString});
+
+    }
+
     private TimeCursorWrapper queryTime(String whereClause, String[] whereArgs){
 
         Cursor cursor = mDatabase.query(TimeTable.NAME, null, whereClause, whereArgs, null, null, null);
+
+        return new TimeCursorWrapper(cursor);
+
+    }
+
+    private TimeCursorWrapper querySettings(String whereClause, String[] whereArgs){
+
+        Cursor cursor = mDatabase.query(TimeTable.SETTINGSNAME, null, whereClause, whereArgs, null, null, null);
 
         return new TimeCursorWrapper(cursor);
 
@@ -157,9 +184,23 @@ public class TimeLab {
         values.put(TimeTable.Cols.LAT, time.getLat());
         values.put(TimeTable.Cols.LONG, time.getLong());
         values.put(TimeTable.Cols.FULLADDRESS, time.getFullAddress());
+        values.put(TimeTable.Cols.COMMENT, time.getComment());
 
         return values;
 
+    }
+
+    private static ContentValues getSettingsValues(Time time){
+
+        ContentValues values = new ContentValues();
+        values.put(TimeTable.settingsCols.SID, time.getNewId().toString());
+        values.put(TimeTable.settingsCols.NAME, time.getName());
+        values.put(TimeTable.settingsCols.EMAIL, time.getEmail());
+        values.put(TimeTable.settingsCols.IDENTITY, time.getIdentifier());
+        values.put(TimeTable.settingsCols.SETTINGSCOMMENT, time.getSettingsComment());
+        values.put(TimeTable.settingsCols.SETTINGSSPINNER, time.getSettingsSpinner());
+
+        return values;
     }
 
 

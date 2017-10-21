@@ -2,6 +2,7 @@ package com.bignerdranch.android.timemanagement.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+import android.util.Log;
 
 import com.bignerdranch.android.timemanagement.Time;
 import com.bignerdranch.android.timemanagement.database.TimeDbSchema.TimeTable;
@@ -41,6 +42,25 @@ public class TimeCursorWrapper extends CursorWrapper {
         time.setLong(lon);
         time.setFullAddress(fullAddress);
         time.setComment(comment);
+
+        return time;
+    }
+
+    public Time getSettings(){
+
+        String uuidString = getString(getColumnIndex(TimeTable.settingsCols.SID));
+        String name = getString(getColumnIndex(TimeTable.settingsCols.NAME));
+        String email = getString(getColumnIndex(TimeTable.settingsCols.EMAIL));
+        String identifier = getString(getColumnIndex(TimeTable.settingsCols.IDENTITY));
+        int sSpinner = getInt(getColumnIndex(TimeTable.settingsCols.SETTINGSSPINNER));
+        String sComment = getString(getColumnIndex(TimeTable.settingsCols.SETTINGSCOMMENT));
+
+        Time time = new Time(UUID.fromString(uuidString));
+        time.setName(name);
+        time.setEmail(email);
+        time.setIdentifier(identifier);
+        time.setSettingsSpinner(sSpinner);
+        time.setSettingsComment(sComment);
 
         return time;
     }
