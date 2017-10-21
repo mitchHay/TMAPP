@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by mitchellhayward on 3/10/17.
+ * Created by Mitchell Hayward on 3/10/17.
+ * Student Number: 1092962
  */
 
 public class TimeLab {
@@ -47,7 +48,7 @@ public class TimeLab {
         mDatabase = new TimeBaseHelper(mContext).getWritableDatabase();
 
         //mTime = new ArrayList<>();
-        mSettings = new ArrayList<>();
+        //mSettings = new ArrayList<>();
     }
 
     public void addActivity(Time t){
@@ -67,10 +68,10 @@ public class TimeLab {
     }
 
     public void addSettings(Time t){
-        mSettings.add(t);
-        //ContentValues values = getSettingsValues(t);
+        //mSettings.add(t);
+        ContentValues values = getSettingsValues(t);
 
-        //mDatabase.insert(TimeTable.SETTINGSNAME, null, values);
+        mDatabase.insert(TimeTable.SETTINGSNAME, null, values);
     }
 
     public List<Time> getActivity(){
