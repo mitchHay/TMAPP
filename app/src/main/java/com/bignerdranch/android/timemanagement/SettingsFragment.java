@@ -56,7 +56,14 @@ public class SettingsFragment extends Fragment {
         //mTime = new Time();
         UUID timeId = (UUID) getArguments().getSerializable(ARG_SETTINGS_ID);
 
-        mTime = TimeLab.get(getActivity()).getTime(timeId);
+        mTime = TimeLab.get(getActivity()).getSettings(timeId);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        TimeLab.get(getActivity()).updateSettings(mTime);
     }
 
     @Override

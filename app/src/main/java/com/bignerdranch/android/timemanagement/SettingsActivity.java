@@ -26,7 +26,7 @@ public class SettingsActivity extends SingleFragmentActivity {
     public static Intent newIntent(Context packageContext, UUID time_id){
         Intent intent = new Intent(packageContext, SettingsActivity.class);
         intent.putExtra(EXTRA_SETTINGS_ID, time_id);
-        Log.d("ID: ", time_id.toString());
+        //Log.d("ID: ", time_id.toString());
         return intent;
     }
 
@@ -35,7 +35,7 @@ public class SettingsActivity extends SingleFragmentActivity {
 
         UUID timeId = (UUID) getIntent().getSerializableExtra(EXTRA_SETTINGS_ID);
 
-        Log.d("NAME ID: ", timeId.toString());
+        //Log.d("NAME ID: ", timeId.toString());
 
         return SettingsFragment.newInstance(timeId);
 
