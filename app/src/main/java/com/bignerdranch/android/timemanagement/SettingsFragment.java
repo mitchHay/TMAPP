@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +41,8 @@ public class SettingsFragment extends Fragment {
     private EditText mCommentField;
 
     private Spinner mSpinner;
+
+    private Button mFinish;
 
     public static SettingsFragment newInstance(UUID timeId){
         Bundle args = new Bundle();
@@ -162,6 +165,16 @@ public class SettingsFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        mFinish = (Button)v.findViewById(R.id.settings_done);
+        mFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast completeToast = Toast.makeText(getActivity(), "Saving Your Settings...", Toast.LENGTH_SHORT);
+                completeToast.show();
+                getActivity().finish();
             }
         });
 
