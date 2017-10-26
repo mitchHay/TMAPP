@@ -18,14 +18,9 @@ import java.util.UUID;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String string = "Working";
-
-    private Time mTime;
 
     public static Intent newIntent(Context packageContext){
         Intent intent = new Intent(packageContext, MapsActivity.class);
-        //intent.putExtra(EXTRA_MAP_ID, time_id);
-        //Log.d("ID: ", time_id.toString());
         return intent;
     }
 
@@ -37,8 +32,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        //Log.d("HELLO:", " " + mTime.getLat());
     }
 
 

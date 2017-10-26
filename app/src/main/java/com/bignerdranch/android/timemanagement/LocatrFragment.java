@@ -38,7 +38,6 @@ import java.util.UUID;
 
 public class LocatrFragment extends SupportMapFragment {
     private static final String ARG_MAP_ID = "com.bignerdranch.android.timemanagement.map_id";
-    private ImageView mImageView;
     private GoogleApiClient mClient;
 
     private GoogleMap mMap;
@@ -65,10 +64,6 @@ public class LocatrFragment extends SupportMapFragment {
 
         UUID timeId = (UUID) getArguments().getSerializable(ARG_MAP_ID);
         mTime = TimeLab.get(getActivity()).getTime(timeId);
-
-        //Log.d("TEST: ", mTime.getFullAddress());
-
-        //setHasOptionsMenu(true);
 
         mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
             @Override
@@ -122,9 +117,6 @@ public class LocatrFragment extends SupportMapFragment {
             LatLng itemPoint = new LatLng(mTime.getLat(), mTime.getLong());
 
             LatLngBounds bounds = new LatLngBounds.Builder().include(itemPoint).build();
-
-            //int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
-            //CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, margin);
 
             CameraUpdate zoomUpdate = CameraUpdateFactory.newLatLngZoom(itemPoint, 18.5f);
 

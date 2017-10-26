@@ -120,7 +120,6 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //mTime = new Time();
         UUID timeId = (UUID) getArguments().getSerializable(ARG_TIME_ID);
         mTime = TimeLab.get(getActivity()).getTime(timeId);
         mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API).addConnectionCallbacks(this).build();
@@ -169,13 +168,12 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mViewMap.setEnabled(true);
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            Log.d("P STATUS: ", TAG);
+
         } else {
-            Log.d("P STATUS: ", TAG_SUCCESS);
+
             LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    Log.d("LOCATION: ", String.valueOf(location));
                     mTime.setLat(location.getLatitude());
                     mTime.setLong(location.getLongitude());
                 }
@@ -363,9 +361,7 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
         mViewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.d("LAT: ", mTime.getFullAddress());
                 Intent intent = LocatrActivity.newIntent(getActivity(), mTime.getId());
-                //Intent intent = MapsActivity.newIntent(getActivity());
                 startActivity(intent);
             }
         });
@@ -425,7 +421,6 @@ public class TimeFragment extends Fragment implements GoogleApiClient.Connection
     private void updateDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d, yyyy");
         mDateButton.setText(sdf.format(mTime.getDate()));
-        //mDateButton.setText(mTime.getDate().toString());
     }
 
     private void updatePhotoView(){

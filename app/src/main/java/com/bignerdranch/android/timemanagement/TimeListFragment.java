@@ -78,7 +78,6 @@ public class TimeListFragment extends Fragment {
                 return true;
             case R.id.user_settings:
                 Time settingsTime = new Time();
-                //Log.d("ID: ", settingsTime.getNewId().toString());
                 TimeLab.get(getActivity()).addSettings(settingsTime);
                 Intent settingsIntent = SettingsActivity.newIntent(getActivity(), settingsTime.getNewId());
                 startActivity(settingsIntent);
@@ -132,15 +131,12 @@ public class TimeListFragment extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d, yyyy");
             mDateTextView.setText(sdf.format(mTime.getDate()));
 
-            //mDateTextView.setText(mTime.getDate().toString());
-
         }
 
         @Override
         public void onClick(View view) {
             Intent intent = TimePagerActivity.newIntent(getActivity(), mTime.getId());
             startActivity(intent);
-            //Toast.makeText(getActivity(), mTime.getTitle() + " selected", Toast.LENGTH_SHORT).show();
         }
     }
 

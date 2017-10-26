@@ -70,8 +70,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         Button mTimeButton = (Button)getActivity().findViewById(R.id.duration_button);
 
-        //mTimeButton.setText(String.valueOf(hourOfDay) + " HOURS " + String.valueOf(minute) + " MINUTES");
-
         sendResult(Activity.RESULT_OK, hourOfDay, minute);
 
     }

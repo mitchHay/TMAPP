@@ -34,7 +34,6 @@ public class LocatrActivity extends SingleFragmentActivity {
     public static Intent newIntent(Context packageContext, UUID time_id){
         Intent intent = new Intent(packageContext, LocatrActivity.class);
         intent.putExtra(EXTRA_MAP_ID, time_id);
-        //Log.d("ID: ", time_id.toString());
         return intent;
     }
 
