@@ -1,7 +1,7 @@
 package com.bignerdranch.android.timemanagement.database;
 
 /**
- * Created by mitchellhayward on 16/10/17.
+ * Created by Mitchell Hayward on 16/10/17.
  */
 
 public class TimeDbSchema {
