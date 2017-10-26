@@ -17,6 +17,7 @@
     <string name="settings_gender">Gender</string>
     <string name="settings_comment">Comment</string>
     <string name="menu_delete">Delete Activity</string>
+    <string name="menu_save">Save Activity</string>
 
     <string-array name="activity_arrays">
         <item>Work</item>

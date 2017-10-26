@@ -6,7 +6,7 @@
     <item
         android:icon="@drawable/ic_menu_complete"
         android:id="@+id/complete_activity"
-        android:title="@string/menu_delete"
+        android:title="@string/menu_save"
         app:showAsAction="ifRoom|withText"/>
 
     <item

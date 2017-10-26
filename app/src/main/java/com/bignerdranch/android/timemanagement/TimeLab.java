@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.bignerdranch.android.timemanagement.database.TimeBaseHelper;
 import com.bignerdranch.android.timemanagement.database.TimeCursorWrapper;
@@ -24,16 +23,8 @@ public class TimeLab {
 
     private static TimeLab sTimeLab;
 
-    private Time settingsTime;
-
-    //private List<Time> mTime;
-
-    private List<Time> mSettings;
-
     private Context mContext;
     private SQLiteDatabase mDatabase;
-
-    private SQLiteDatabase mSettingsDatabase;
 
     public static TimeLab get(Context context){
 
@@ -46,13 +37,9 @@ public class TimeLab {
     private TimeLab(Context context){
         mContext = context.getApplicationContext();
         mDatabase = new TimeBaseHelper(mContext).getWritableDatabase();
-
-        //mTime = new ArrayList<>();
-        //mSettings = new ArrayList<>();
     }
 
     public void addActivity(Time t){
-        //mTime.add(t);
         ContentValues values = getContentValues(t);
 
         mDatabase.insert(TimeTable.NAME, null, values);
@@ -68,14 +55,12 @@ public class TimeLab {
     }
 
     public void addSettings(Time t){
-        //mSettings.add(t);
         ContentValues values = getSettingsValues(t);
 
         mDatabase.insert(TimeTable.SETTINGSNAME, null, values);
     }
 
     public List<Time> getActivity(){
-        //return new ArrayList<>();
 
         List<Time> time = new ArrayList<>();
 
@@ -94,8 +79,6 @@ public class TimeLab {
     }
 
     public Time getTime(UUID id){
-
-        //return null;
 
         TimeCursorWrapper cursor = queryTime(TimeTable.Cols.UUID + " = ?", new String[] {id.toString()});
 

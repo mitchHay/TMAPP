@@ -56,7 +56,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //mTime = new Time();
         UUID timeId = (UUID) getArguments().getSerializable(ARG_SETTINGS_ID);
 
         mTime = TimeLab.get(getActivity()).getSettings(timeId);
